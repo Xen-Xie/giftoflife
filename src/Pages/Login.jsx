@@ -25,7 +25,7 @@ function Login() {
               type="text"
               id="username"
               placeholder="Enter Your User-Name"
-              className="border border-primary/50 focus:border-primary/80 focus:ring-1 focus:ring-primary/80 focus:outline-none rounded-full mx-3 px-4 py-2 w-full placeholder:text-textl text-sm transition duration-300 ease-in-out"
+              className="inputFields"
             />
           </div>
 
@@ -40,7 +40,7 @@ function Login() {
               type="text"
               id="email"
               placeholder="Enter Your E-mail"
-              className="border border-primary/50 focus:border-primary/80 focus:ring-1 focus:ring-primary/80 focus:outline-none rounded-full mx-3 px-4 py-2 w-full placeholder:text-textl text-sm transition duration-300 ease-in-out"
+              className="inputFields"
             />
           </div>
           <div className="mb-4 relative w-full max-w-md mx-auto">
@@ -54,7 +54,7 @@ function Login() {
               type={showPassword? "text" : "password"}
               id="password"
               placeholder="Enter Your Password"
-              className="border border-primary/50 focus:border-primary/80 focus:ring-1 focus:ring-primary/80 focus:outline-none rounded-full mx-3 px-4 py-2 w-full placeholder:text-textl text-sm transition duration-300 ease-in-out"
+              className="inputFields"
             />
             <span onClick={()=>setShowPassword(!showPassword)} className="absolute right-8 top-11 transform -translate-y-1/2 text-gray-500 cursor-pointer">
             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} >
