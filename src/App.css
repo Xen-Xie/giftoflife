@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Scrollbar Track - lighter red or a soft shade */
+::-webkit-scrollbar-track {
+  background: #f87171; /* lighter red */
+}
+
+/* Scrollbar Thumb - darker red */
+::-webkit-scrollbar-thumb {
+  background-color: #b91c1c; /* darker red */
+  border-radius: 6px;
+  border: 3px solid #f87171; /* border matches track */
+}
+
+/* Hover effect: slightly darker thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #7f1d1d;
+}
+
