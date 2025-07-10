@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-Lexend: 'Lexend', sans-serif;
+  --font-Urbanist: 'Urbanist', sans-serif;
+  --color-primary: #D62828;
+  --color-accent: #F77F00;
+  --color-BG: #F8F9FA;
+  --color-text: #212529;
+  --color-success: #43AA8B
+}
+.dark {
+  --color-primary: #FF6B6B;
+  --color-accent: #FFD166;
+  --color-bg: #121212;
+  --color-text: #F8F9FA;
+  --color-success: #80ED99;
+}
