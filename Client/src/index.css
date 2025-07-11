@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-Lexend: 'Lexend', sans-serif;
   --font-Urbanist: 'Urbanist', sans-serif;
@@ -8,8 +10,10 @@
   --color-accent: #F77F00;
   --color-BG: #F8F9FA;
   --color-text: #212529;
-  --color-success: #43AA8B
+  --color-success: #43AA8B;
+  --color-melty: #1A202C
 }
+
 .dark {
   --color-primary: #FF6B6B;
   --color-accent: #FFD166;
