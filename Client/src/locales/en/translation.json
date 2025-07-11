@@ -7,7 +7,16 @@
     "signup": "Sign Up"
   },
   "error": {
-  "message": "You took a wrong turn, homie.",
-  "back": "Back to Safety"
-  }
+    "message": "You took a wrong turn, homie.",
+    "back": "Back to Safety"
+  },
+  "quote": [
+    "Donate Blood, Save Lives.",
+    "One donation can save up to 3 lives.",
+    "Be a Hero – Give Blood."
+  ],
+  "subtext": "A few drops from you can be a second chance for someone else.",
+  "search_placeholder": "Enter location...",
+  "blood_group": "Blood Group",
+  "search": "Search"
 }
