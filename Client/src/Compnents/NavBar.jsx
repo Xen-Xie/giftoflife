@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 function NavBar() {
+  const { t, i18n } = useTranslation();
+
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Find Donor", path: "/find-donor" },
-    { name: "About", path: "/about" },
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.findDonor"), path: "/find-donor" },
+    { name: t("nav.about"), path: "/about" },
   ];
 
   const [open, setOpen] = useState(false);
@@ -28,13 +31,16 @@ function NavBar() {
     return localStorage.getItem("lang") || "en";
   });
 
-  useEffect(() => {
-    localStorage.setItem("lang", lang);
-  }, [lang]);
+  const toggleLang = () => {
+    const newLang = lang === "en" ? "bn" : "en";
+    i18n.changeLanguage(newLang);
+    setLang(newLang);
+    localStorage.setItem("lang", newLang);
+  };
 
   return (
     <div className="font-Urbanist">
-      <nav className="flex justify-between items-center bg-transparent shadow-xl mx-auto px-4 py-2 font-Urbanist font-semibold dark:bg-melty dark:text-white">
+      <nav className="flex justify-between items-center bg-transparent shadow-lg mx-auto px-4 py-2 font-semibold dark:bg-melty dark:text-white md:px-12 xl:px-20 dark:shadow-lg">
         {/* Logo */}
         <div>
           <img src="/giftoflifes.png" alt="Logo" className="w-20" />
@@ -47,7 +53,7 @@ function NavBar() {
               <li key={i}>
                 <Link
                   to={item.path}
-                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 after:ease-in-out hover:after:w-full"
+                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.name}
                 </Link>
@@ -64,17 +70,17 @@ function NavBar() {
               <li>
                 <Link
                   to="/login"
-                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 after:ease-in-out hover:after:w-full"
+                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  Login
+                  {t("nav.login")}
                 </Link>
               </li>
               <li>
                 <Link
                   to="/signup"
-                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 after:ease-in-out hover:after:w-full"
+                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  Sign Up
+                  {t("nav.signup")}
                 </Link>
               </li>
             </ul>
@@ -121,14 +127,23 @@ function NavBar() {
             {/* Language Button */}
             <motion.button
               whileTap={{ scale: 0.9 }}
-              onClick={() => setLang(lang === "en" ? "bn" : "en")}
+              onClick={toggleLang}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 dark:bg-BG/10 hover:bg-primary/20 hover:dark:bg-BG/20 transition-all duration-300 text-primary dark:text-BG relative group cursor-pointer"
               title="Change Language"
             >
               <i className="fa-solid fa-earth-asia text-base" />
-              <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition text-primary/70 hover:dark:text-BG/20">
-                {lang.toUpperCase()}
-              </span>
+              <AnimatePresence>
+                <motion.span
+                  key={lang}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs group-hover:opacity-100 opacity-80 transition text-primary/70"
+                >
+                  {lang.toUpperCase()}
+                </motion.span>
+              </AnimatePresence>
             </motion.button>
           </div>
 
@@ -155,7 +170,7 @@ function NavBar() {
               <Link
                 to={item.path}
                 onClick={() => setOpen(false)}
-                className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 after:ease-in-out hover:after:w-full"
+                className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
               >
                 {item.name}
               </Link>

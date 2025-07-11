@@ -5,10 +5,12 @@ import { Outlet } from "react-router";
 function Layout() {
   return (
     <>
-      <NavBar />
-      <main>
-        <Outlet />
-      </main>
+      <div className='flex flex-col min-h-screen relative'>
+        <NavBar />
+        <main className='flex-grow relative z-30'>
+            <Outlet />
+        </main>
+    </div>
     </>
   )
 }

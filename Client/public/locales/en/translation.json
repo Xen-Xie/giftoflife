@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "home": "Home",
+    "findDonor": "Find Donor",
+    "about": "About",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "error": {
+  "message": "You took a wrong turn, homie.",
+  "back": "Back to Safety"
+  }
+}
