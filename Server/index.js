@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { DB } from './src/config/db.js';
 import authRoutes from './src/routes/authRoutes.js';
+import { limiter } from './src/middleware/rateLimit.js';
 
 //Configurations
 const app = express();
@@ -11,6 +12,7 @@ dotenv.config();
 //Middleware
 app.use(express.json());
 app.use(cors());
+app.use(limiter)
 
 //Database Connection
 const url = process.env.MONGO_URL;
