@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { DB } from './src/config/db';
+import { DB } from './src/config/db.js';
+import authRoutes from './src/routes/authRoutes.js';
 
 //Configurations
 const app = express();
@@ -17,7 +18,7 @@ DB(url);
 
 //Routes
 
-app.use('/api/auth')
+app.use('/api/auth' , authRoutes);
 
 
 //Server Port
