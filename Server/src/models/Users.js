@@ -39,10 +39,12 @@ const userSchema = new Schema({
   },
 
   address: {
-    type: String,
-    required: true,
-    trim: true,
+  type: {
+    division: { type: String, required: true },
+    district: { type: String, required: true }
   },
+  required: true
+},
 
   lastDonated: {
     type: Date,
