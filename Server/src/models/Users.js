@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -22,14 +22,14 @@ const userSchema = new Schema({
     // Password must have at least 8 characters, one uppercase, one number, and one special character
     match: [
       /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-      "Password must be at least 8 characters and include an uppercase letter, number, and special character"
+      "Password must be at least 8 characters and include an uppercase letter, number, and special character",
     ],
   },
 
   bloodGroup: {
     type: String,
     required: true,
-    enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+    enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
   },
 
   phoneNumber: {
@@ -39,12 +39,9 @@ const userSchema = new Schema({
   },
 
   address: {
-  type: {
     division: { type: String, required: true },
-    district: { type: String, required: true }
+    district: { type: String, required: true },
   },
-  required: true
-},
 
   lastDonated: {
     type: Date,
@@ -54,14 +51,14 @@ const userSchema = new Schema({
   age: {
     type: Number,
     required: true,
-    min: [18, 'You must be at least 18 years old to donate'],
-    max: [65, 'You must be under 65 years old to donate'],
+    min: [18, "You must be at least 18 years old to donate"],
+    max: [65, "You must be under 65 years old to donate"],
   },
 
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
+    enum: ["user", "admin"],
+    default: "user",
   },
 
   isAdmin: {
@@ -75,5 +72,5 @@ const userSchema = new Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 export default User;
