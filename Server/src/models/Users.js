@@ -38,10 +38,13 @@ const userSchema = new Schema({
     match: [/^\d{11}$/, "Please use a valid 11-digit phone number"],
   },
 
-  address: {
+address: new Schema(
+  {
     division: { type: String, required: true },
     district: { type: String, required: true },
   },
+  { _id: false }
+),
 
   lastDonated: {
     type: Date,
