@@ -17,6 +17,7 @@ DB(url);
 
 //Routes
 
+app.use('/api/auth')
 
 
 //Server Port
