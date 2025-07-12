@@ -13,11 +13,7 @@ const app = express();
 dotenv.config();
 
 //Middleware
-app.use(cors({
-  origin: ["https://giftoflife.onrender.com"],
-
-  credentials: true
-}));
+app.use(cors); // Enable CORS for all routes unless it goes on production
 app.use(express.json());
 app.use(limiter)
 app.use(helmet());
