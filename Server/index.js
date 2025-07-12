@@ -13,11 +13,12 @@ const app = express();
 dotenv.config();
 
 //Middleware
-app.use(express.json());
 app.use(cors({
   origin: ["https://giftoflife.onrender.com"],
+
   credentials: true
 }));
+app.use(express.json());
 app.use(limiter)
 app.use(helmet());
 app.use(xss());
