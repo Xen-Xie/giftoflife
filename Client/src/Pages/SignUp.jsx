@@ -140,6 +140,15 @@ function SignUp() {
                     onMouseDown={(e) => e.preventDefault()}
                   ></i>
                 </div>
+                <input
+                  type="telephone"
+                  name="phoneNumber"
+                  placeholder={t(formLabels.phoneNumber)}
+                  value={form.phoneNumber}
+                  onChange={handleChange}
+                  required
+                  className="input"
+                />
                 <Button className="w-full font-bold" onClick={handleNext}>
                   {t(formLabels.next)}
                 </Button>
