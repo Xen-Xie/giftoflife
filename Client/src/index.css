@@ -35,3 +35,26 @@
   animation: glitch 0.6s infinite;
   text-shadow: 2px 2px red, -2px -2px cyan;
 }
+@layer components {
+  .input{
+    @apply w-full border-2 border-success/30 rounded-xl px-5 py-2
+    focus:outline-none focus:ring-2 focus:ring-success/70
+    font-Urbanist text-base font-semibold
+    placeholder:text-primary text-primary/80
+    invalid:border-accent invalid:placeholder:text-accent invalid:text-accent
+    min-w-0 max-w-full
+    transition-all duration-300 ease-in-out
+  }
+  .eyeball{
+    @apply absolute right-4 top-1/2 transform -translate-y-1/2 
+    text-primary cursor-pointer
+  }
+}
+/*Remove Autofill bg & text color*/
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 9999s ease-in-out 0s;
+  -webkit-text-fill-color: #D62828 !important;
+  font-family: 'Urbanist', sans-serif !important;
+}

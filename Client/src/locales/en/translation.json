@@ -104,11 +104,13 @@
     "next": "Next",
     "back": "Back",
     "submit": "Submit",
-    "Signup Successful": "Signup Successful",
-    "Signup Failed": "Signup Failed",
-    "Please fill all the required fields in step 1": "Please fill all the required fields in step 1",
+    "SignupSuccessful": "Signup Successful",
+    "SignupFailed": "Signup Failed",
+    "step1req": "Please fill all the required fields in step 1",
     "alreadyhaveAccount": "Already have an account? ",
     "login": "Login Here",
-    "signup": "Sign Up"
+    "signup": "Sign Up",
+    "step1": "Step 1",
+    "step2": "Step 2"
   }
 }
