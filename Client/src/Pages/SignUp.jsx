@@ -6,11 +6,13 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import Button from "../Compnents/Button";
 import { Link } from "react-router";
+import DateInput from "../Compnents/DateInput";
 
 function SignUp() {
   const { t, i18n } = useTranslation();
   // Fetching the divisions and districts from the translation files
   const DivisionDristrict = t("divisions", { returnObjects: true });
+
   // Fetching the form data from the translation files
   const formLabels = t("signup", { returnObjects: true });
 
@@ -152,6 +154,108 @@ function SignUp() {
                 <Button className="w-full font-bold" onClick={handleNext}>
                   {t(formLabels.next)}
                 </Button>
+              </>
+            )}
+            {/* Step 2 */}
+            {step === 2 && (
+              <>
+                {/* Blood Group Selection */}
+                <div className="relative w-full">
+                  <select
+                    name="bloodGroup"
+                    value={form.bloodGroup}
+                    onChange={handleChange}
+                    required
+                    className="dropdown truncate pr-10"
+                  >
+                    <option value="">{t(formLabels.bloodGroup)}</option>
+                    {["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"].map(
+                      (group) => (
+                        <option key={group} value={group}>
+                          {group}
+                        </option>
+                      )
+                    )}
+                  </select>
+                  <i
+                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out
+     select-dropdown-icon"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+                {/* Division Selection */}
+                <div className="mt-4 relative">
+                  <label className="block mb-1 font-semibold text-primary/90">
+                    {t(formLabels.division)}
+                  </label>
+                  <select
+                    name="division"
+                    value={form.division}
+                    onChange={handleChange}
+                    required
+                    className="dropdown truncate pr-10"
+                  >
+                    <option value="">{t(formLabels.division)}</option>
+                    {Object.keys(DivisionDristrict).map((division) => (
+                      <option key={division} value={division}>
+                        {division}
+                      </option>
+                    ))}
+                  </select>
+                  <i
+                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-4/6 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out
+     select-dropdown-icon"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+                {/* District Selection */}
+                <div className="mt-4 relative">
+                  <label className="block mb-1 font-semibold text-primary/90">
+                    {t(formLabels.district)}
+                  </label>
+                  <select
+                    name="district"
+                    value={form.district}
+                    onChange={handleChange}
+                    required
+                    disabled={!form.division}
+                    className={`dropdown ${
+                      !form.division ? "opacity-50 cursor-not-allowed" : ""
+                    } truncate pr-10`}
+                  >
+                    <option value="">{t(formLabels.district)}</option>
+                    {form.division &&
+                      DivisionDristrict[form.division].map((district) => (
+                        <option key={district} value={district}>
+                          {district}
+                        </option>
+                      ))}
+                  </select>
+                  <i
+                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-4/6 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out
+     select-dropdown-icon"
+                    aria-hidden="true"
+                  ></i>
+                </div>
+                {/* Age */}
+                <input
+                  type="number"
+                  name="age"
+                  placeholder={t(formLabels.age)}
+                  value={form.age}
+                  onChange={handleChange}
+                  min={18}
+                  max={65}
+                  required
+                  onWheel={(e) => e.target.blur()}
+                  className="input"
+                />
+                {/* Last Donate Date */}
+                <DateInput />
+                <div className="flex flex-col gap-1.5 sm:flex-row sm:justify-between">
+                  <Button className='bg-accent  w-full'onClick={handleBack}>{t(formLabels.back)}</Button>
+                  <Button className="bg-success w-full" onClick={handleSubmit}>{t(formLabels.submit)}</Button>
+                </div>
               </>
             )}
           </form>

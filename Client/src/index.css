@@ -49,7 +49,57 @@
     @apply absolute right-4 top-1/2 transform -translate-y-1/2 
     text-primary cursor-pointer
   }
+  .dropdown{
+    @apply w-full appearance-none border-2 border-success/30 rounded-xl px-5 py-2
+    focus:outline-none focus:ring-2 focus:ring-success/70
+    font-Urbanist text-base font-semibold
+    placeholder:text-primary text-primary/80
+    invalid:border-accent invalid:placeholder:text-accent invalid:text-accent
+    min-w-0 max-w-full
+    transition-all duration-300 ease-in-out cursor-pointer
+  }
 }
+/* DropDown Icon Animation */
+@keyframes bounceIcon {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes rotateIcon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.animate-bounceIcon {
+  animation: bounceIcon 1.2s ease-in-out infinite;
+}
+.animate-rotateIcon {
+  animation: rotateIcon 0.3s ease forwards;
+}
+/* When select is focused, animate the icon */
+select:focus + .select-dropdown-icon {
+  animation: rotateIcon 0.3s ease forwards;
+}
+
+/*Bounce icon when hovering the select */
+select:hover + .select-dropdown-icon {
+  animation: bounceIcon 1.2s ease-in-out infinite;
+}
+
+/* Reset animation when select loses focus */
+select:not(:focus) + .select-dropdown-icon {
+  animation: none;
+  transform: rotate(0);
+}
+
 /*Remove Autofill bg & text color*/
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
@@ -58,3 +108,32 @@ input:-webkit-autofill {
   -webkit-text-fill-color: #D62828 !important;
   font-family: 'Urbanist', sans-serif !important;
 }
+/* Hide number input arrows - Chrome, Safari, Edge */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Firefox */
+input[type="date"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+

@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router';
 import { cn } from '../../config/cn';
 
-const Button = ({ to = '/', children, onClick, className }) => {
-  return (
-    <Link to={to} onClick={onClick}>
-      <motion.button
+const Button = ({ to, children, onClick, className }) => {
+  const content = (
+    <motion.button
+    onClick={onClick}
   whileTap={{ scale: 0.95 }}
   className={cn(
-    "relative overflow-hidden bg-primary px-8 py-3 rounded-full font-medium group shadow-lg hover:shadow-xl transition-shadow duration-300",
+    "relative flex justify-center text-center overflow-hidden bg-primary px-8 py-3 rounded-full font-medium group shadow-lg hover:shadow-xl transition-shadow duration-300",
     "outline-none ring-0 hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-BG dark:hover:ring-offset-BG",
     className
   )}
@@ -23,8 +23,8 @@ const Button = ({ to = '/', children, onClick, className }) => {
     aria-hidden="true"
   />
 </motion.button>
-    </Link>
-  );
+  )
+  return to ? <Link to={to}>{content}</Link> : content;
 };
 
 export default Button;
