@@ -36,17 +36,38 @@ function SignUp() {
       ...(name === "division" && { district: "" }), // Reset district when division changes
     }));
   };
+  const isStrongPassword = (pwd) =>
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(pwd);
+  const [error, setError] = useState("");
+
   const handleNext = () => {
-    if (form.fullName && form.email && form.password && form.phoneNumber) {
-      setStep(2);
-    } else {
-      alert(t("Please fill all the required fields in step 1"));
+    // Clear old errors
+    setError("");
+
+    if (!form.fullName || !form.email || !form.password || !form.phoneNumber) {
+      setError(t(formLabels.passwordRequirement));
+      return;
     }
+
+    if (!isStrongPassword(form.password)) {
+      setError(
+        t(
+          formLabels.passwordRequirement
+        )
+      );
+      return;
+    }
+    setStep(2);
   };
+
   const handleBack = () => setStep(1);
+  const [success, setSuccess] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+  setSuccess(false);
     try {
       const payload = {
         fullName: form.fullName,
@@ -65,19 +86,10 @@ function SignUp() {
         "https://giftoflife.onrender.com/api/auth/signup",
         payload
       );
-      alert(t(formLabels.SignupSuccessful));
-      setStep(1); // Reset to step 1 after successful signup
-      setForm({
-        fullName: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
-        bloodGroup: "",
-        age: "",
-        lastDonated: "",
-        division: "",
-        district: "",
-      });
+      setSuccess(true);
+      setTimeout(() => {
+      window.location.href = "/login";
+    }, 2000);
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || t(formLabels.SignupFailed));
@@ -98,6 +110,11 @@ function SignUp() {
       backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] 
       border border-white/20"
         >
+          {error && (
+            <div className="mb-4 p-3 rounded bg-primary/10 text-primary font-semibold border border-primary text-sm">
+              {error}
+            </div>
+          )}
           {/*Form Start From Here*/}
           <form onSubmit={handleSubmit} className="space-y-4">
             <h1 className="text-melty dark:text-BG font-semibold text-xl text-center">
@@ -253,8 +270,12 @@ function SignUp() {
                 {/* Last Donate Date */}
                 <DateInput />
                 <div className="flex flex-col gap-1.5 sm:flex-row sm:justify-between">
-                  <Button className='bg-accent  w-full'onClick={handleBack}>{t(formLabels.back)}</Button>
-                  <Button className="bg-success w-full" onClick={handleSubmit}>{t(formLabels.submit)}</Button>
+                  <Button className="bg-accent  w-full" onClick={handleBack}>
+                    {t(formLabels.back)}
+                  </Button>
+                  <Button className="bg-success w-full" onClick={handleSubmit} to="/login">
+                    {t(formLabels.submit)}
+                  </Button>
                 </div>
               </>
             )}
