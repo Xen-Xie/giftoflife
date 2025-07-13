@@ -113,5 +113,12 @@
     "step1": "Step 1",
     "step2": "Step 2",
     "passwordRequirement": "Password must be at least 8 characters and include an uppercase letter, a number, and a special character."
+  },
+  "login": {
+    "email": "Enter Your Email",
+    "password": "Enter Your Password",
+    "login":"Login",
+    "noaccount": "Don't have an account? ",
+    "signup": "Sign Up"
   }
 }
