@@ -5,8 +5,10 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import Button from "../Components/Button";
 import { Link, useNavigate } from "react-router";
+import { useAuth } from "../auth/useAuth";
 
 function Login() {
+  const {login} = useAuth
   // Fetching the divisions and districts from the translation files
   const { t } = useTranslation();
   const formLabels = t("login", { returnObjects: true });
@@ -32,7 +34,7 @@ function Login() {
         "https://giftoflife.onrender.com/api/auth/login",
         form
       );
-      localStorage.setItem("token", res.data.token);
+      login(res.data.token);
       navigate("/");
     } catch (err) {
       console.error(err);
