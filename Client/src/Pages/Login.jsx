@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router";
 import { useAuth } from "../auth/useAuth";
 
 function Login() {
-  const {login} = useAuth
+  const { login, user } = useAuth;
   // Fetching the divisions and districts from the translation files
   const { t } = useTranslation();
   const formLabels = t("login", { returnObjects: true });
@@ -20,6 +20,12 @@ function Login() {
   });
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  // This will redirect The user to the Home If user is logged in before
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import Button from "../Components/Button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import DateInput from "../Components/DateInput";
+import { useAuth } from "../auth/useAuth";
 
 function SignUp() {
+  const { user } = useAuth();
+  const navigaeTo = useNavigate();
   const { t, i18n } = useTranslation();
   // Fetching the divisions and districts from the translation files
   const DivisionDristrict = t("divisions", { returnObjects: true });
@@ -28,6 +31,12 @@ function SignUp() {
     division: "",
     district: "",
   });
+  // This will redirect The user to the Home If user is logged in before
+  useEffect(() => {
+    if (user) {
+      navigaeTo("/");
+    }
+  }, [user, navigaeTo]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({
