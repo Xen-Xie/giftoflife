@@ -29,7 +29,7 @@ export const Signup = async (req, res) => {
       bloodGroup,
       phoneNumber,
       address,
-      lastDonated,
+      lastDonated: lastDonated ? new Date(lastDonated) : null,
       age,
       role,
     });
