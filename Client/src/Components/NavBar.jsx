@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../auth/useAuth";
 
 function NavBar() {
   const { t, i18n } = useTranslation();
+  const { user, logout } = useAuth(); // Use the useAuth hook
 
   const navItems = [
     { name: t("nav.home"), path: "/" },
@@ -14,9 +16,6 @@ function NavBar() {
   ];
 
   const [open, setOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  // Theme toggle
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -41,8 +40,18 @@ function NavBar() {
   return (
     <div className="font-Urbanist">
       <nav className="flex justify-between items-center bg-transparent shadow-lg mx-auto px-4 py-2 font-semibold dark:bg-melty dark:text-white md:px-12 xl:px-20 dark:shadow-lg">
-        {/* Logo */}
-        <div>
+        {/* Logo+Log Out */}
+        <div className="flex items-center gap-4">
+          {user && (
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={logout}
+              title="Logout"
+              className="text-xl hidden sm:flex cursor-pointer"
+            >
+              <i className="fa-solid fa-right-from-bracket hover:text-melty dark:hover:text-primary text-[25px] transition-colors duration-300" />
+            </motion.button>
+          )}
           <img src="/giftoflifes.png" alt="Logo" className="w-20" />
         </div>
 
@@ -59,13 +68,22 @@ function NavBar() {
                 </Link>
               </li>
             ))}
+            {user && (
+              <Link
+                to="/dashboard"
+                className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {t("nav.dashboard")}
+              </Link>
+            )}
           </ul>
         </div>
 
         {/* Right Controls */}
         <div className="flex items-center gap-4">
-          {/* Auth Buttons */}
-          {isLoggedIn ? (
+          {user ? (
+            <></>
+          ) : (
             <ul className="hidden md:flex items-center gap-4">
               <li>
                 <Link
@@ -84,15 +102,6 @@ function NavBar() {
                 </Link>
               </li>
             </ul>
-          ) : (
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsLoggedIn(false)}
-              title="Logout"
-              className="text-xl"
-            >
-              <i className="fa-solid fa-right-from-bracket" />
-            </motion.button>
           )}
 
           {/* Theme & Lang Toggles */}
@@ -175,7 +184,33 @@ function NavBar() {
                 {item.name}
               </Link>
             </li>
-          ))}
+          ))}{" "}
+          {user && (
+            <li>
+              <Link
+                to="/dashboard"
+                onClick={() => setOpen(false)}
+                className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {t("nav.dashboard")}
+              </Link>
+            </li>
+          )}
+          {user && (
+            <li>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  logout();
+                  setOpen(false); // close menu after logout
+                }}
+                title="Logout"
+                className="text-xl"
+              >
+                <i className="fa-solid fa-right-from-bracket" />
+              </motion.button>
+            </li>
+          )}
         </ul>
       </div>
     </div>

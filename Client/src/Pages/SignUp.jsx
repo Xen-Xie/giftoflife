@@ -4,9 +4,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import Button from "../Compnents/Button";
+import Button from "../Components/Button";
 import { Link } from "react-router";
-import DateInput from "../Compnents/DateInput";
+import DateInput from "../Components/DateInput";
 
 function SignUp() {
   const { t, i18n } = useTranslation();
@@ -50,11 +50,7 @@ function SignUp() {
     }
 
     if (!isStrongPassword(form.password)) {
-      setError(
-        t(
-          formLabels.passwordRequirement
-        )
-      );
+      setError(t(formLabels.passwordRequirement));
       return;
     }
     setStep(2);
@@ -63,11 +59,10 @@ function SignUp() {
   const handleBack = () => setStep(1);
   const [success, setSuccess] = useState(false);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-  setSuccess(false);
+    setSuccess(false);
     try {
       const payload = {
         fullName: form.fullName,
@@ -88,8 +83,8 @@ function SignUp() {
       );
       setSuccess(true);
       setTimeout(() => {
-      window.location.href = "/login";
-    }, 2000);
+        window.location.href = "/login";
+      }, 2000);
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || t(formLabels.SignupFailed));
@@ -273,7 +268,11 @@ function SignUp() {
                   <Button className="bg-accent  w-full" onClick={handleBack}>
                     {t(formLabels.back)}
                   </Button>
-                  <Button className="bg-success w-full" onClick={handleSubmit} to="/login">
+                  <Button
+                    className="bg-success w-full"
+                    onClick={handleSubmit}
+                    to="/login"
+                  >
                     {t(formLabels.submit)}
                   </Button>
                 </div>

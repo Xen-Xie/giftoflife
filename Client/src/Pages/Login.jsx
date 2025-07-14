@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import Button from "../Compnents/Button";
+import Button from "../Components/Button";
 import { Link, useNavigate } from "react-router";
 
 function Login() {
@@ -33,7 +33,7 @@ function Login() {
         form
       );
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || t("Invalid credentials"));
