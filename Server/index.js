@@ -37,8 +37,8 @@ app.use('/api/admin', authenticateToken, isAdmin, adminRoutes);
 //Server Port
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
-  console.log(`SERVER: http://localhost:${PORT}`);
+app.listen(PORT,"0.0.0.0",()=>{
+  console.log(`SERVER: http://0.0.0.0:${PORT}`);
 })
 
 
