@@ -9,6 +9,7 @@ import xss from 'xss-clean';
 import mongoSanitize from 'express-mongo-sanitize';
 import userRoutes from './src/routes/userRoutes.js';
 import { authenticateToken, isAdmin } from "./src/middleware/auth.js";
+import adminRoutes from './src/routes/adminRoutes.js';
 
 //Configurations
 const app = express();
@@ -29,7 +30,8 @@ DB(url);
 //Routes
 
 app.use('/api/auth' , authRoutes);
-app.use('/api/admin', authenticateToken, isAdmin,userRoutes)
+app.use('/api/users', authenticateToken,userRoutes)
+app.use('/api/admin', authenticateToken, isAdmin, adminRoutes);
 
 
 //Server Port
