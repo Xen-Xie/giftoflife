@@ -7,6 +7,8 @@ import { limiter } from './src/middleware/rateLimit.js';
 import helmet from 'helmet';
 import xss from 'xss-clean';
 import mongoSanitize from 'express-mongo-sanitize';
+import userRoutes from './src/routes/userRoutes.js';
+import { authenticateToken, isAdmin } from "./src/middleware/auth.js";
 
 //Configurations
 const app = express();
@@ -27,6 +29,7 @@ DB(url);
 //Routes
 
 app.use('/api/auth' , authRoutes);
+app.use('/api/admin', authenticateToken, isAdmin,userRoutes)
 
 
 //Server Port
