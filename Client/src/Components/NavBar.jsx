@@ -39,7 +39,7 @@ function NavBar() {
 
   return (
     <div className="font-Urbanist">
-      <nav className="flex justify-between items-center bg-transparent shadow-lg mx-auto px-4 py-2 font-semibold dark:bg-melty dark:text-white md:px-12 xl:px-20 dark:shadow-lg">
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center bg-transparent shadow-lg mx-auto px-4 py-2 font-semibold dark:bg-melty dark:text-white md:px-12 xl:px-20 dark:shadow-lg backdrop-blur-md">
         {/* Logo+Log Out */}
         <div className="flex items-center gap-4">
           {user && (

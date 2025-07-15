@@ -9,14 +9,14 @@ function Hero() {
   const quoteLines = t('quote', { returnObjects: true }); // array of quotes
 
   return (
-    <section className="relative w-full h-[85vh] flex items-center justify-center bg-gradient-to-br from-red-100 via-white to-white dark:from-gray-900 dark:to-black px-6 font-Lexend">
+    <section className="bg-animated relative w-full flex items-center justify-center bg-gradient-to-br from-red-100 via-pink-50 to-white dark:from-[#0f0f1a] dark:via-[#23263d] dark:to-[#3e5370] px-6 font-Lexend">
       <div className="max-w-4xl w-full text-center space-y-6">
         {/* Typewriter Quote */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-5xl font-extrabold text-melty dark:text-primary leading-tight min-h-[80px] md:min-h-[120px]"
+          className="text-3xl md:text-5xl font-extrabold text-melty dark:text-primary leading-tight min-h-[80px] md:min-h-[120px] mt-10"
         >
           <span className="inline-block">
             <Typewriter

@@ -99,6 +99,22 @@ select:not(:focus) + .select-dropdown-icon {
   animation: none;
   transform: rotate(0);
 }
+/*Animated gradient bg*/
+@keyframes gradient-move {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.bg-animated {
+  background-size: 400% 400%;
+  animation: gradient-move 15s ease-in-out infinite;
+}
+
+
 
 /*Remove Autofill bg & text color*/
 input:-webkit-autofill {
