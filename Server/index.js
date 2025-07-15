@@ -10,6 +10,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 import userRoutes from './src/routes/userRoutes.js';
 import { authenticateToken, isAdmin } from "./src/middleware/auth.js";
 import adminRoutes from './src/routes/adminRoutes.js';
+import defaultRoutes from './src/routes/defaultRoutes.js';
 
 //Configurations
 const app = express();
@@ -28,7 +29,7 @@ const url = process.env.MONGO_URL;
 DB(url);
 
 //Routes
-
+app.use('/api', defaultRoutes)
 app.use('/api/auth' , authRoutes);
 app.use('/api/users', authenticateToken,userRoutes)
 app.use('/api/admin', authenticateToken, isAdmin, adminRoutes);
