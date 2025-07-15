@@ -17,12 +17,24 @@ export const searchUsers = async (req, res) => {
       order = "desc",
       division,
       district,
+      q,
     } = req.query;
 
     const filter = {};
+
     if (bloodGroup) filter.bloodGroup = bloodGroup;
     if (division) filter["address.division"] = division;
     if (district) filter["address.district"] = district;
+
+    // Handle keyword search
+    if (q) {
+      const regex = new RegExp(q, "i"); // case-insensitive match
+      filter.$or = [
+        { fullName: regex },
+        { "address.division": regex },
+        { "address.district": regex },
+      ];
+    }
 
     const sortOption = {};
     sortOption[sortBy] = order === "desc" ? -1 : 1;
