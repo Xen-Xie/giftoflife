@@ -49,3 +49,12 @@ export const searchUsers = async (req, res) => {
     res.status(500).json({ message: "Search failed" });
   }
 };
+// Count all the controllers
+export const getStats = async (req, res) => {
+  try {
+    const total = await User.countDocuments();
+    res.status(200).json({ total });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to get stats" });
+  }
+};
