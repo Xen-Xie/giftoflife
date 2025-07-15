@@ -11,16 +11,24 @@ export const getAllUsers = async (req, res) => {
 };
 export const searchUsers = async (req, res) => {
   try {
-    const { bloodGroup, sortBy = "createdAt", order = "desc" } = req.query;
+    const {
+      bloodGroup,
+      sortBy = "createdAt",
+      order = "desc",
+      division,
+      district,
+    } = req.query;
 
     const filter = {};
     if (bloodGroup) filter.bloodGroup = bloodGroup;
+    if (division) filter["address.division"] = division;
+    if (district) filter["address.district"] = district;
 
     const sortOption = {};
     sortOption[sortBy] = order === "desc" ? -1 : 1;
 
     const users = await User.find(filter)
-      .select("fullName bloodGroup address email")
+      .select("fullName bloodGroup address email phoneNumber lastDonated")
       .sort(sortOption);
 
     res.status(200).json(users);
@@ -29,4 +37,3 @@ export const searchUsers = async (req, res) => {
     res.status(500).json({ message: "Search failed" });
   }
 };
-
