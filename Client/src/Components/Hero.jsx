@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
-import { useTranslation } from 'react-i18next';
-import Button from './Button';
+import { Link } from "react-router";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import { useTranslation } from "react-i18next";
+import Button from "./Button";
 
 function Hero() {
   const { t, i18n } = useTranslation();
   const quoteLines = t('quote', { returnObjects: true }); // array of quotes
-
+  const heroText = t('hero', { returnObjects: true });
+  const navText = t('nav', { returnObjects: true });
   return (
-    <section className="bg-animated relative w-full flex items-center justify-center bg-gradient-to-br from-red-100 via-pink-50 to-white dark:from-[#0f0f1a] dark:via-[#23263d] dark:to-[#3e5370] px-6 font-Lexend">
+    <section className="relative w-full flex items-center justify-center px-6 font-Lexend">
       <div className="max-w-4xl w-full text-center space-y-6">
         {/* Typewriter Quote */}
         <motion.h1
@@ -38,38 +40,17 @@ function Hero() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-lg md:text-xl text-gray-600 dark:text-primary"
         >
-          {t('subtext')}
+          {t("subtext")}
         </motion.p>
 
-        {/* Search */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="w-full max-w-xl mx-auto"
-        >
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <input
-              type="text"
-              placeholder={t('search_placeholder')}
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <select
-              className="w-full md:w-40 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <option>{t('blood_group')}</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>O+</option>
-              <option>O-</option>
-              <option>AB+</option>
-              <option>AB-</option>
-            </select>
-            <Button>{t('search')}</Button>
-          </div>
-        </motion.div>
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          {t(heroText.joinCommunity)}
+        </p>
+        <Link to="/find-donor">
+          <Button className="px-6 py-3 text-lg text-center mx-auto">
+            {t(navText.findDonor)}
+          </Button>
+        </Link>
       </div>
     </section>
   );

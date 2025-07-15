@@ -122,5 +122,9 @@
     "login":"Login",
     "noaccount": "Don't have an account? ",
     "signup": "Sign Up"
+  },
+  "hero":{
+    "joinCommunity": "Join our community to help those in need",
+    "totalUsers": "Total Registered Users : "
   }
 }
