@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router";
 import { useAuth } from "../auth/useAuth";
 
 function Login() {
-  const { login, user } = useAuth;
+  const { login, user } = useAuth();
   // Fetching the divisions and districts from the translation files
   const { t } = useTranslation();
   const formLabels = t("login", { returnObjects: true });
