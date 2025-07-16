@@ -119,11 +119,11 @@
   "login": {
     "email": "Enter Your Email",
     "password": "Enter Your Password",
-    "login":"Login",
+    "login": "Login",
     "noaccount": "Don't have an account? ",
     "signup": "Sign Up"
   },
-  "hero":{
+  "hero": {
     "joinCommunity": "Join our community to help those in need",
     "totalUsers": "Total Registered Users : "
   },
@@ -139,25 +139,29 @@
     "tip8": "Wear clothing with sleeves that can be rolled up easily."
   },
   "howItWorks": {
-  "title": "How It Works?",
-  "steps": [
-    {
-      "title": "Register Yourself",
-      "desc": "Sign up with your details and blood group to join the donor list."
-    },
-    {
-      "title": "Find a Donor",
-      "desc": "Search for a nearby donor using blood group and location."
-    },
-    {
-      "title": "Contact Donor",
-      "desc": "Get in touch with the donor and arrange the donation."
-    },
-    {
-      "title": "Save a Life",
-      "desc": "Donate blood and make a difference in someone's life."
-    }
-  ]
-}
-
+    "title": "How It Works?",
+    "steps": [
+      {
+        "title": "Register Yourself",
+        "desc": "Sign up with your details and blood group to join the donor list."
+      },
+      {
+        "title": "Find a Donor",
+        "desc": "Search for a nearby donor using blood group and location."
+      },
+      {
+        "title": "Contact Donor",
+        "desc": "Get in touch with the donor and arrange the donation."
+      },
+      {
+        "title": "Save a Life",
+        "desc": "Donate blood and make a difference in someone's life."
+      }
+    ]
+  },
+  "findDonor": {
+    "loginTitle": "Nothing to see here.",
+    "loginSubtitle": "Please login or sign up to find donors near you.",
+    "title": "Find Blood Donors"
+  }
 }
