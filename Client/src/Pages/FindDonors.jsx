@@ -2,23 +2,28 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../auth/useAuth";
 import { Link } from "react-router";
-// import SearchBar from "../Components/SearchBar"; // your own search bar
-// import DonorCard from "../Components/DonorCard"; // card to show each donor
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Button from "../Components/Button";
+import SearchSection from "../Components/SearchBar";
+import SearchResults from "../Components/SearchResults";
 
 function FindDonor() {
   const { user } = useAuth();
   const { t } = useTranslation();
   const [donors, setDonors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
+      setLoading(true);
       axios
-        .get("https://giftoflife.onrender.com/api/users/search")
+        .get("https://giftoflife.onrender.com/api/users/search", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
         .then((res) => setDonors(res.data))
-        .catch((err) => console.error("Failed to load donors:", err));
+        .catch((err) => console.error("Failed to load donors:", err))
+        .finally(() => setLoading(false));
     }
   }, [user]);
 
@@ -29,9 +34,7 @@ function FindDonor() {
           {t("findDonor.loginTitle")}
         </h1>
         <p className="text-gray-600 dark:text-gray-300 mb-6">
-          {t(
-            "findDonor.loginSubtitle"
-          )}
+          {t("findDonor.loginSubtitle")}
         </p>
         <div className="flex gap-4">
           <Link to="/login">
@@ -54,8 +57,10 @@ function FindDonor() {
       </h2>
 
       {/* Search Bar */}
+      <SearchSection setResults={setDonors} setLoading={setLoading} />
 
       {/* Donor List */}
+      <SearchResults results={donors} loading={loading} />
     </div>
   );
 }
