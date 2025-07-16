@@ -126,5 +126,16 @@
   "hero":{
     "joinCommunity": "Join our community to help those in need",
     "totalUsers": "Total Registered Users : "
+  },
+  "medicalTips": {
+    "title": "Medical Tips for Donors",
+    "tip1": "Stay hydrated before and after donating blood.",
+    "tip2": "Eat iron-rich foods regularly.",
+    "tip3": "Avoid donating on an empty stomach.",
+    "tip4": "Wait at least 56 days between donations.",
+    "tip5": "Avoid smoking or drinking alcohol before donating.",
+    "tip6": "Get enough sleep the night before your donation.",
+    "tip7": "Inform staff if you feel dizzy or lightheaded.",
+    "tip8": "Wear clothing with sleeves that can be rolled up easily."
   }
 }

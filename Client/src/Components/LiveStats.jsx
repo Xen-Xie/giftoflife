@@ -22,7 +22,7 @@ function LiveStats() {
 
   return (
     <div className="text-center mt-10 text-3xl font-bold text-accent font-Lexend">
-      <AnimatedSection>
+      <AnimatedSection once={true}>
         <span>{t(text.totalUsers)}</span>
       <CountUp className="text-melty dark:text-BG font-Urbanist" end={userCount} duration={2} separator="," />
       </AnimatedSection>

@@ -10,8 +10,9 @@ function AnimatedSection({
   scale = 0.98,
   skew = 0,
   rotate = 0,
-  threshold = 0.15,
-  once = true,
+  threshold = 0.2,
+  once = false,
+  duration = 0.6,
 }) {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -37,6 +38,7 @@ function AnimatedSection({
         stiffness: 80,
         damping: 18,
         delay,
+        duration,
       }}
       variants={{
         hidden: {
