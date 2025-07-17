@@ -47,9 +47,9 @@ address: new Schema(
 ),
 
   lastDonated: {
-    type: Date,
-    default: null,
-  },
+  type: [Date],  // array of dates
+  default: [],
+},
 
   age: {
     type: Number,

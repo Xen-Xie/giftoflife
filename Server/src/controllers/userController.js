@@ -73,3 +73,49 @@ export const getUser = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch user" });
   }
 };
+
+// PATCH donate-date
+export const addDonationDate = async (req, res) => {
+  const { id } = req.params;
+  const { newDate } = req.body;
+
+  if (!newDate) {
+    return res.status(400).json({ message: "Donation date is required." });
+  }
+
+  try {
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ message: "User not found." });
+
+    const parsedDate = new Date(newDate);
+
+    // Validate: check if it's a real date
+    if (isNaN(parsedDate)) {
+      return res.status(400).json({ message: "Invalid date format." });
+    }
+
+    // Prevent duplicate entries for the same date
+    const alreadyExists = user.lastDonated?.some(
+      (d) =>
+        new Date(d).toISOString().split("T")[0] ===
+        parsedDate.toISOString().split("T")[0]
+    );
+
+    if (alreadyExists) {
+      return res
+        .status(409)
+        .json({ message: "This donation date is already recorded." });
+    }
+
+    user.lastDonated.push(parsedDate);
+    await user.save();
+
+    return res.status(200).json({
+      message: "Donation date added successfully.",
+      lastDonated: user.lastDonated,
+    });
+  } catch (error) {
+    console.error("Error adding donation date:", error);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
