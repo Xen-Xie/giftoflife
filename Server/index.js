@@ -33,6 +33,7 @@ app.use('/api', defaultRoutes)
 app.use('/api/auth' , authRoutes);
 app.use('/api/users', authenticateToken,userRoutes)
 app.use('/api/admin', authenticateToken, isAdmin, adminRoutes);
+app.use('/api/user',authenticateToken,userRoutes)
 
 
 //Server Port
