@@ -1,19 +1,19 @@
-
 import { useTranslation } from "react-i18next";
-function DateInput({ value, onChange }) {
+import { cn } from "../../config/cn";
+function DateInput({ value, onChange,className }) {
   const { t } = useTranslation();
-    const formLabels = t("signup", { returnObjects: true });
+  const formLabels = t("signup", { returnObjects: true });
   return (
     <div className="relative w-full max-w-xs">
       <label className="block mb-1 font-semibold text-primary/90">
-                    {t(formLabels.lastDonated)}
-                  </label>
+        {t(formLabels.lastDonated)}
+      </label>
       <input
         type="date"
         name="lastDonated"
         value={value}
         onChange={onChange}
-        className="input" 
+        className={cn('input',className)}
         placeholder="Last Donate Date"
       />
       <i

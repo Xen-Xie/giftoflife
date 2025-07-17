@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
 
   // Provide user info and auth functions to children components
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, token: localStorage.getItem("token") }}>
       {children}
     </AuthContext.Provider>
   );

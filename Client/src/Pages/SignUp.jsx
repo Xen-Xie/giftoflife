@@ -272,7 +272,7 @@ function SignUp() {
                   className="input"
                 />
                 {/* Last Donate Date */}
-                <DateInput />
+                <DateInput value={form.lastDonated} onChange={handleChange} />
                 <div className="flex flex-col gap-1.5 sm:flex-row sm:justify-between">
                   <Button className="bg-accent  w-full" onClick={handleBack}>
                     {t(formLabels.back)}

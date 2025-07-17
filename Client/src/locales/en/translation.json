@@ -163,5 +163,16 @@
     "loginTitle": "Nothing to see here.",
     "loginSubtitle": "Please login or sign up to find donors near you.",
     "title": "Find Blood Donors"
+  },
+  "dashBoard": {
+    "age": "Age : ",
+    "phone": "Phone : ",
+    "division": "Division : ",
+    "district": "District : ",
+    "dhistory": "Donation History",
+    "ldate": "Last Donation Date",
+    "vdh": "View Donation History",
+    "add": "Add Donation",
+    "save": "Saving..."
   }
 }
