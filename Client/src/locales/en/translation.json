@@ -116,7 +116,8 @@
     "step2": "Step 2",
     "passwordRequirement": "Password must be at least 8 characters and include an uppercase letter, a number, and a special character.",
     "allFieldsRequired": "All fields are required",
-    "invalidEmail": "Please Enter A valid email address","forbiddenNameWord": "Name can't contain the word: \"{{word}}\""
+    "invalidEmail": "Please Enter A valid email address",
+    "forbiddenNameWord": "Name can't contain the word: \"{{word}}\""
   },
   "login": {
     "email": "Enter Your Email",
@@ -175,18 +176,19 @@
     "ldate": "Last Donation Date",
     "vdh": "View Donation History",
     "add": "Add Donation",
-    "save": "Saving..."
+    "save": "Saving...",
+    "statusAvailable": "Available",
+    "statusUnavailable": "Unavailable"
   },
-"about": {
-  "title": "Fueling Hope, One Drop at a Time.",
-  "missionTitle": "Our Mission",
-  "missionDesc": "We're not just building a platform, we're building a lifeline. Our mission is to ensure that no life is lost due to blood shortage — ever.",
-  "visionTitle": "Our Vision",
-  "visionDesc": "We dream of a future where blood donation is a reflex, not a request. A future where help is a heartbeat away.",
-  "whyDonateTitle": "Why Donate?",
-  "whyDonateDesc": "One donation can save up to three lives. You may never meet them, but they'll never forget you.",
-  "joinTitle": "Join the Cause",
-  "joinDesc": "Be the reason someone gets another sunrise. Join the movement — because heroes don’t wear capes, they donate blood."
-}
-
+  "about": {
+    "title": "Fueling Hope, One Drop at a Time.",
+    "missionTitle": "Our Mission",
+    "missionDesc": "We're not just building a platform, we're building a lifeline. Our mission is to ensure that no life is lost due to blood shortage — ever.",
+    "visionTitle": "Our Vision",
+    "visionDesc": "We dream of a future where blood donation is a reflex, not a request. A future where help is a heartbeat away.",
+    "whyDonateTitle": "Why Donate?",
+    "whyDonateDesc": "One donation can save up to three lives. You may never meet them, but they'll never forget you.",
+    "joinTitle": "Join the Cause",
+    "joinDesc": "Be the reason someone gets another sunrise. Join the movement — because heroes don’t wear capes, they donate blood."
+  }
 }

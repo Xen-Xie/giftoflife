@@ -7,6 +7,7 @@ import DateInput from "../Components/DateInput";
 import { useTranslation } from "react-i18next";
 import Button from "../Components/Button";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const { token, user: authUser } = useAuth();
@@ -56,6 +57,39 @@ function Dashboard() {
       alert(err.response?.data?.message || "Failed to add donation date");
     } finally {
       setUpdating(false);
+    }
+  };
+
+  const handleToggleAvailable = async () => {
+    setProfile((prev) => ({
+      ...prev,
+      isAvailable: !prev.isAvailable,
+    }));
+    try {
+      const res = await axios.patch(
+        `https://giftoflife.onrender.com/api/user/me/available/${profile._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data?.updatedUser?.isAvailable !== undefined) {
+        setProfile((prev) => ({
+          ...prev,
+          isAvailable: res.data.updatedUser.isAvailable,
+        }));
+        toast.success(
+          res.data.updatedUser.isAvailable
+            ? t(dt.statusAvailable)
+            : t(dt.statusUnavailable)
+        );
+      }
+    } catch (error) {
+      toast.error(t("Toggle Error"));
+      console.error("Toggle error:", error);
     }
   };
 
@@ -124,6 +158,22 @@ function Dashboard() {
             >
               {t(dt.vdh)}
             </Button>
+            <div className="mt-6 text-center">
+              {/* Available Toggle Button */}
+              <Button
+                whileTap={{ scale: 0.95 }}
+                onClick={handleToggleAvailable}
+                className={`border w-full max-w-xs ${
+                  profile?.isAvailable
+                    ? "bg-success"
+                    : "bg-melty dark:bg-accent"
+                }`}
+              >
+                {profile?.isAvailable
+                  ? t(dt.statusAvailable)
+                  : t(dt.statusUnavailable)}
+              </Button>
+            </div>
             {profile.lastDonated?.length > 0 && (
               <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full mt-2">
                 {profile.lastDonated.length} donation
