@@ -38,24 +38,28 @@ const userSchema = new Schema({
     match: [/^\d{11}$/, "Please use a valid 11-digit phone number"],
   },
 
-address: new Schema(
-  {
-    division: { type: String, required: true },
-    district: { type: String, required: true },
-  },
-  { _id: false }
-),
+  address: new Schema(
+    {
+      division: { type: String, required: true },
+      district: { type: String, required: true },
+    },
+    { _id: false }
+  ),
 
   lastDonated: {
-  type: [Date],  // array of dates
-  default: [],
-},
+    type: [Date], // array of dates
+    default: [],
+  },
 
   age: {
     type: Number,
     required: true,
     min: [18, "You must be at least 18 years old to donate"],
     max: [65, "You must be under 65 years old to donate"],
+  },
+  isAvailable: {
+    type: Boolean,
+    default: true,
   },
 
   role: {

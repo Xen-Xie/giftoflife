@@ -119,3 +119,22 @@ export const addDonationDate = async (req, res) => {
     return res.status(500).json({ message: "Internal server error." });
   }
 };
+
+// Toggle Availability
+
+export const toggleAvailability = async (req, res) => {
+  try {
+    const Id = req.params.id;
+    const user = await User.findById(Id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    user.isAvailable = !user.isAvailable;
+    await user.save();
+    return ers.status(200).json({
+      message: "Availability toggled successfully.",
+      isAvailable: user.isAvailable,
+    });
+  } catch (error) {
+    console.error("Toggle error:", error);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
