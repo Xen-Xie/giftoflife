@@ -29,22 +29,37 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("No auth token found. Please login.");
+        return;
+      }
+
       try {
         const res = await axios.get(
-          "https://giftoflife.onrender.com/api/admin/users"
+          "https://giftoflife.onrender.com/api/admin/users",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setUsers(res.data);
-      } catch {
+      } catch (err) {
         toast.error("Failed to fetch users");
+        console.error(err);
       }
     };
+
     fetchUsers();
   }, []);
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this user?")) return;
     try {
-      await axios.delete(`/api/admin/users/${id}`);
+      await axios.delete(
+        `https://giftoflife.onrender.com/api/admin/users/${id}`
+      );
       toast.success("User deleted");
       setUsers((prev) => prev.filter((u) => u._id !== id));
     } catch {
@@ -55,12 +70,13 @@ const AdminDashboard = () => {
   const handleRoleUpdate = async (id, role, isAdmin) => {
     setUpdatingId(id);
     try {
-      await axios.patch(`/api/admin/users/${id}/role`, { role, isAdmin });
+      await axios.patch(
+        `https://giftoflife.onrender.com/api/admin/users/${id}/role`,
+        { role, isAdmin }
+      );
       toast.success("Role updated");
       setUsers((prev) =>
-        prev.map((u) =>
-          u._id === id ? { ...u, role, isAdmin } : u
-        )
+        prev.map((u) => (u._id === id ? { ...u, role, isAdmin } : u))
       );
     } catch {
       toast.error("Failed to update role");
@@ -69,65 +85,70 @@ const AdminDashboard = () => {
     }
   };
 
-  const columns = useMemo(() => [
-    {
-      header: "Name",
-      accessorKey: "fullName",
-    },
-    {
-      header: "Email",
-      accessorKey: "email",
-    },
-    {
-      header: "Role",
-      accessorKey: "role",
-    },
-    {
-      header: "Admin",
-      accessorKey: "isAdmin",
-      cell: ({ getValue }) => {
-        const value = getValue();
-        return (
-          <span
-            className={`px-2 py-1 rounded-full text-sm ${
-              value ? "bg-green-200 text-green-800" : "bg-gray-200 text-gray-800"
-            }`}
-          >
-            {value ? "Yes" : "No"}
-          </span>
-        );
+  const columns = useMemo(
+    () => [
+      {
+        header: "Name",
+        accessorKey: "fullName",
       },
-    },
-    {
-      header: "Actions",
-      cell: ({ row }) => {
-        const { _id, role, isAdmin } = row.original;
-        return (
-          <div className="space-x-2">
-            <button
-              onClick={() => handleDelete(_id)}
-              className="px-2 py-1 text-red-600 border border-red-500 rounded hover:bg-red-500 hover:text-white transition"
-            >
-              Delete
-            </button>
-            <button
-              onClick={() =>
-                handleRoleUpdate(
-                  _id,
-                  role === "user" ? "admin" : "user",
-                  !isAdmin
-                )
-              }
-              disabled={updatingId === _id}
-              className="px-2 py-1 text-blue-600 border border-blue-500 rounded hover:bg-blue-500 hover:text-white transition"
-            >
-              {updatingId === _id ? "Updating..." : "Toggle Role"}
-            </button>
-          </div>
-        );
+      {
+        header: "Email",
+        accessorKey: "email",
       },
-    },
-  ], [updatingId]);
+      {
+        header: "Role",
+        accessorKey: "role",
+      },
+      {
+        header: "Admin",
+        accessorKey: "isAdmin",
+        cell: ({ getValue }) => {
+          const value = getValue();
+          return (
+            <span
+              className={`px-2 py-1 rounded-full text-sm ${
+                value
+                  ? "bg-green-200 text-green-800"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              {value ? "Yes" : "No"}
+            </span>
+          );
+        },
+      },
+      {
+        header: "Actions",
+        cell: ({ row }) => {
+          const { _id, role, isAdmin } = row.original;
+          return (
+            <div className="space-x-2">
+              <button
+                onClick={() => handleDelete(_id)}
+                className="px-2 py-1 text-red-600 border border-red-500 rounded hover:bg-red-500 hover:text-white transition"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() =>
+                  handleRoleUpdate(
+                    _id,
+                    role === "user" ? "admin" : "user",
+                    !isAdmin
+                  )
+                }
+                disabled={updatingId === _id}
+                className="px-2 py-1 text-blue-600 border border-blue-500 rounded hover:bg-blue-500 hover:text-white transition"
+              >
+                {updatingId === _id ? "Updating..." : "Toggle Role"}
+              </button>
+            </div>
+          );
+        },
+      },
+    ],
+    [updatingId]
+  );
 
   const table = useReactTable({
     data: users,
@@ -156,23 +177,25 @@ const AdminDashboard = () => {
       <div className="overflow-x-auto border rounded-lg shadow-md">
         <table className="min-w-full table-auto border-collapse">
           <thead className="bg-gray-100 text-gray-700">
-            {table.getHeaderGroups().map(headerGroup => (
+            {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
+                {headerGroup.headers.map((header) => (
                   <th key={header.id} className="px-6 py-3 border-b">
-                    {header.isPlaceholder ? null : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody className="divide-y">
-            {table.getRowModel().rows.map(row => (
+            {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="hover:bg-gray-50">
-                {row.getVisibleCells().map(cell => (
+                {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-6 py-3">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
