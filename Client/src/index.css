@@ -58,6 +58,14 @@
     min-w-0 max-w-full
     transition-all duration-300 ease-in-out cursor-pointer
   }
+  /*About page*/
+  .head{
+    @apply  dark:bg-gray-800/60 shadow-xl p-6 md:p-10 mb-10 rounded-xl backdrop-blur-md font-Lexend
+  }
+  .quots{
+    @apply text-melty dark:text-BG text-lg font-Urbanist
+  }
+  
 }
 /* DropDown Icon Animation */
 @keyframes bounceIcon {
