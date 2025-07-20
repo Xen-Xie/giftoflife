@@ -47,19 +47,116 @@ function SignUp() {
   };
   const isStrongPassword = (pwd) =>
     /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(pwd);
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const [error, setError] = useState("");
 
   const handleNext = () => {
     // Clear old errors
     setError("");
+    const { fullName, email, password, phoneNumber } = form;
+    const forbiddenWords = [
+      "bro",
+      "itz",
+      "it'z",
+      "its",
+      "cdi",
+      "gaming",
+      "with",
+      "xd",
+      "gg",
+      "n00b",
+      "noob",
+      "mafia",
+      "monster",
+      "killer",
+      "rekt",
+      "ez",
+      "420",
+      "69",
+      "lmao",
+      "rofl",
+      "lol",
+      "lel",
+      "xoxo",
+      "sussy",
+      "pussy",
+      "baka",
+      "sus",
+      "pog",
+      "team",
+      "group",
+      "poggers",
+      "yeet",
+      "cringe",
+      "uwu",
+      "owo",
+      "kys",
+      "lmfao",
+      "fml",
+      "simp",
+      "bruh",
+      "wtf",
+      "idk",
+      "idc",
+      "stfu",
+      "goat",
+      "sigma",
+      "rizz",
+      "lit",
+      "woke",
+      "based",
+      "cap",
+      "no cap",
+      "grindset",
+      "dab",
+      "ezpz",
+      "doge",
+      "zaza",
+      "npc",
+      "coomer",
+      "zoomer",
+      "boomer",
+      "giga",
+      "beta",
+      "alpha",
+      "fuck",
+      "fuckoff",
+      "suck",
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+    ];
+    const hasForbiddenWords = (name) =>
+      forbiddenWords.find((word) =>
+        name.toLowerCase().includes(word.toLowerCase())
+      );
 
-    if (!form.fullName || !form.email || !form.password || !form.phoneNumber) {
-      setError(t(formLabels.passwordRequirement));
+    if (!fullName || !email || !password || !phoneNumber) {
+      setError(t(formLabels.allFieldsRequired));
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setError(t(formLabels.invalidEmail));
       return;
     }
 
-    if (!isStrongPassword(form.password)) {
+    if (!isStrongPassword(password)) {
       setError(t(formLabels.passwordRequirement));
+      return;
+    }
+    // Prevent Using unnecessary Words
+    const badWord = hasForbiddenWords(fullName);
+    if (badWord) {
+      setError(
+        t(formLabels.forbiddenNameWord, { word: badWord.toUpperCase() })
+      );
       return;
     }
     setStep(2);
@@ -277,11 +374,7 @@ function SignUp() {
                   <Button className="bg-accent  w-full" onClick={handleBack}>
                     {t(formLabels.back)}
                   </Button>
-                  <Button
-                    className="bg-success w-full"
-                    onClick={handleSubmit}
-                    to="/login"
-                  >
+                  <Button className="bg-success w-full" onClick={handleSubmit}>
                     {t(formLabels.submit)}
                   </Button>
                 </div>

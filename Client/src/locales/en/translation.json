@@ -114,7 +114,9 @@
     "signup": "Sign Up",
     "step1": "Step 1",
     "step2": "Step 2",
-    "passwordRequirement": "Password must be at least 8 characters and include an uppercase letter, a number, and a special character."
+    "passwordRequirement": "Password must be at least 8 characters and include an uppercase letter, a number, and a special character.",
+    "allFieldsRequired": "All fields are required",
+    "invalidEmail": "Please Enter A valid email address","forbiddenNameWord": "Name can't contain the word: \"{{word}}\""
   },
   "login": {
     "email": "Enter Your Email",

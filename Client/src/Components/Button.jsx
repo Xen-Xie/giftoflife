@@ -13,7 +13,7 @@ const Button = ({ to, children, onClick, className }) => {
     "outline-none ring-0 hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-BG dark:hover:ring-offset-BG",
     className
   )}
->
+type='button'>
   <span className="relative z-10 font-Urbanist text-BG text-sm md:text-base whitespace-nowrap">
     {children}
   </span>
