@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router';
 import { cn } from '../../config/cn';
 
-const Button = ({ to, children, onClick, className }) => {
+const Button = ({ to, children, onClick, className, type = 'button' }) => {
   const content = (
     <motion.button
     onClick={onClick}
@@ -13,7 +13,7 @@ const Button = ({ to, children, onClick, className }) => {
     "outline-none ring-0 hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-BG dark:hover:ring-offset-BG",
     className
   )}
-type='button'>
+type={type}>
   <span className="relative z-10 font-Urbanist text-BG text-sm md:text-base whitespace-nowrap">
     {children}
   </span>
