@@ -1,89 +1,106 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo, useState } from "react";
-import { useTable, usePagination, useGlobalFilter } from "react-table";
+import React, { useEffect, useState, useMemo } from "react";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getFilteredRowModel,
+  flexRender,
+} from "@tanstack/react-table";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
-// Global search component
-const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
-  return (
-    <input
-      type="text"
-      className="mb-4 px-4 py-2 border rounded shadow focus:outline-none focus:ring"
-      placeholder="Search by name or email..."
-      value={globalFilter || ""}
-      onChange={(e) => setGlobalFilter(e.target.value)}
-    />
-  );
-};
+// Global Filter Component
+const GlobalFilter = ({ globalFilter, setGlobalFilter }) => (
+  <input
+    type="text"
+    className="mb-4 px-4 py-2 border rounded shadow focus:outline-none focus:ring"
+    placeholder="Search by name or email..."
+    value={globalFilter || ""}
+    onChange={(e) => setGlobalFilter(e.target.value)}
+  />
+);
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [updatingId, setUpdatingId] = useState(null);
-
-  // Fetch users from backend
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get(
-        "https://giftoflife.onrender.com/api/admin/users"
-      );
-      setUsers(res.data);
-    } catch (err) {
-      toast.error("Failed to fetch users");
-    }
-  };
+  const [globalFilter, setGlobalFilter] = useState("");
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get(
+          "https://giftoflife.onrender.com/api/admin/users"
+        );
+        setUsers(res.data);
+      } catch {
+        toast.error("Failed to fetch users");
+      }
+    };
     fetchUsers();
   }, []);
 
-  // Delete user
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this user?")) return;
     try {
       await axios.delete(`/api/admin/users/${id}`);
       toast.success("User deleted");
-      fetchUsers();
-    } catch (err) {
+      setUsers((prev) => prev.filter((u) => u._id !== id));
+    } catch {
       toast.error("Error deleting user");
     }
   };
 
-  // Update user role
   const handleRoleUpdate = async (id, role, isAdmin) => {
     setUpdatingId(id);
     try {
       await axios.patch(`/api/admin/users/${id}/role`, { role, isAdmin });
       toast.success("Role updated");
-      fetchUsers();
-    } catch (err) {
+      setUsers((prev) =>
+        prev.map((u) =>
+          u._id === id ? { ...u, role, isAdmin } : u
+        )
+      );
+    } catch {
       toast.error("Failed to update role");
     } finally {
       setUpdatingId(null);
     }
   };
 
-  const columns = [
-    { Header: "Name", accessor: "fullName" },
-    { Header: "Email", accessor: "email" },
-    { Header: "Role", accessor: "role" },
+  const columns = useMemo(() => [
     {
-      Header: "Admin",
-      accessor: "isAdmin",
-      Cell: ({ value }) => (
-        <span
-          className={`px-2 py-1 rounded-full text-sm ${
-            value ? "bg-green-200 text-green-800" : "bg-gray-200 text-gray-800"
-          }`}
-        >
-          {value ? "Yes" : "No"}
-        </span>
-      ),
+      header: "Name",
+      accessorKey: "fullName",
     },
     {
-      Header: "Actions",
-      Cell: ({ row }) => {
+      header: "Email",
+      accessorKey: "email",
+    },
+    {
+      header: "Role",
+      accessorKey: "role",
+    },
+    {
+      header: "Admin",
+      accessorKey: "isAdmin",
+      cell: ({ getValue }) => {
+        const value = getValue();
+        return (
+          <span
+            className={`px-2 py-1 rounded-full text-sm ${
+              value ? "bg-green-200 text-green-800" : "bg-gray-200 text-gray-800"
+            }`}
+          >
+            {value ? "Yes" : "No"}
+          </span>
+        );
+      },
+    },
+    {
+      header: "Actions",
+      cell: ({ row }) => {
         const { _id, role, isAdmin } = row.original;
         return (
           <div className="space-x-2">
@@ -110,31 +127,17 @@ const AdminDashboard = () => {
         );
       },
     },
-  ];
+  ], [updatingId]);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page, // instead of rows
-    prepareRow,
-    state,
-    setGlobalFilter,
-    canPreviousPage,
-    canNextPage,
-    nextPage,
-    previousPage,
-    pageOptions,
-    state: { pageIndex, globalFilter },
-  } = useTable(
-    {
-      columns,
-      data: users,
-      initialState: { pageIndex: 0, pageSize: 6 }, // You can change the page size
-    },
-    useGlobalFilter,
-    usePagination
-  );
+  const table = useReactTable({
+    data: users,
+    columns,
+    state: { globalFilter },
+    onGlobalFilterChange: setGlobalFilter,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  });
 
   return (
     <motion.div
@@ -151,38 +154,31 @@ const AdminDashboard = () => {
       />
 
       <div className="overflow-x-auto border rounded-lg shadow-md">
-        <table
-          {...getTableProps()}
-          className="min-w-full table-auto border-collapse"
-        >
+        <table className="min-w-full table-auto border-collapse">
           <thead className="bg-gray-100 text-gray-700">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()} className="text-left">
-                {headerGroup.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps()}
-                    className="px-6 py-3 border-b"
-                  >
-                    {column.render("Header")}
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <th key={header.id} className="px-6 py-3 border-b">
+                    {header.isPlaceholder ? null : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-
-          <tbody {...getTableBodyProps()} className="divide-y">
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()} className="hover:bg-gray-50">
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()} className="px-6 py-3">
-                      {cell.render("Cell")}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
+          <tbody className="divide-y">
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id} className="hover:bg-gray-50">
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id} className="px-6 py-3">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -190,21 +186,21 @@ const AdminDashboard = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between mt-6">
         <button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
           className="px-4 py-2 text-sm border rounded disabled:opacity-50"
         >
           Previous
         </button>
 
         <span className="text-sm">
-          Page <strong>{pageIndex + 1}</strong> of{" "}
-          <strong>{pageOptions.length}</strong>
+          Page <strong>{table.getState().pagination.pageIndex + 1}</strong> of{" "}
+          <strong>{table.getPageCount()}</strong>
         </span>
 
         <button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
           className="px-4 py-2 text-sm border rounded disabled:opacity-50"
         >
           Next
