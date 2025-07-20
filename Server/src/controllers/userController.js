@@ -129,7 +129,7 @@ export const toggleAvailability = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
     user.isAvailable = !user.isAvailable;
     await user.save();
-    return ers.status(200).json({
+    return res.status(200).json({
       message: "Availability toggled successfully.",
       isAvailable: user.isAvailable,
     });

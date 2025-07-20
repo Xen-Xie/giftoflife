@@ -4,6 +4,6 @@ import { addDonationDate, getUser, toggleAvailability } from "../controllers/use
 const router = express.Router();
 router.get("/me/:id", getUser)
 router.patch("/me/add-donation/:id", addDonationDate)
-router.patch("/available", toggleAvailability)
+router.patch("/me/available/:id", toggleAvailability)
 
 export default router;
