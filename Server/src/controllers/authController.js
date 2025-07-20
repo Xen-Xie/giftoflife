@@ -52,9 +52,12 @@ export const Login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Incorrect password" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    // Add role to the token (important)
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
     return res.status(200).json({
       token,
@@ -70,3 +73,4 @@ export const Login = async (req, res) => {
     return res.status(500).json({ message: "Login failed" });
   }
 };
+
