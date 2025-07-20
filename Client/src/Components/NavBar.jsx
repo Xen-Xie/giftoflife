@@ -76,6 +76,16 @@ function NavBar() {
                 {t("nav.dashboard")}
               </Link>
             )}
+            <li>
+              {user?.isAdmin && (
+                <Link
+                  to="/admindashboard"
+                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+                >
+                  Admin Panel
+                </Link>
+              )}
+            </li>
           </ul>
         </div>
 
@@ -196,6 +206,16 @@ function NavBar() {
               </Link>
             </li>
           )}
+          <li>
+            {user?.isAdmin && (
+              <Link
+                to="/admindashboard"
+                className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+              >
+                Admin Panel
+              </Link>
+            )}
+          </li>
           {user && (
             <li>
               <motion.button

@@ -21,11 +21,7 @@ const About = () => {
           <h2 className="text-2xl font-bold text-primary mb-4 font-Lexend">
             {t("about.missionTitle")}
           </h2>
-          <p className="quots">
-            {t(
-              "about.missionDesc"
-            )}
-          </p>
+          <p className="quots">{t("about.missionDesc")}</p>
         </div>
       </AnimatedSection>
 
@@ -35,11 +31,7 @@ const About = () => {
           <h2 className="text-2xl font-bold text-primary mb-4">
             {t("about.visionTitle")}
           </h2>
-          <p className="quots">
-            {t(
-              "about.visionDesc"
-            )}
-          </p>
+          <p className="quots">{t("about.visionDesc")}</p>
         </div>
       </AnimatedSection>
 
@@ -49,11 +41,7 @@ const About = () => {
           <h2 className="text-2xl font-bold text-primary mb-4">
             {t("about.whyDonateTitle")}
           </h2>
-          <p className="quots">
-            {t(
-              "about.whyDonateDesc"
-            )}
-          </p>
+          <p className="quots">{t("about.whyDonateDesc")}</p>
         </div>
       </AnimatedSection>
 
@@ -63,11 +51,7 @@ const About = () => {
           <h2 className="text-2xl font-bold text-primary mb-4">
             {t("about.joinTitle")}
           </h2>
-          <p className="quots">
-            {t(
-              "about.joinDesc"
-            )}
-          </p>
+          <p className="quots">{t("about.joinDesc")}</p>
         </div>
       </AnimatedSection>
     </div>

@@ -8,6 +8,8 @@ import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import ErrorPage from "./Pages/ErrorPage";
 import DashBoard from "./Pages/DashBoard";
+import AdminDashboard from "./Pages/AdminDashboard";
+import AdminRoute from "./routes/AdminRoute";
 
 function App() {
   return (
@@ -20,6 +22,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={<DashBoard />} />
+          <Route
+            path="/admindashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
