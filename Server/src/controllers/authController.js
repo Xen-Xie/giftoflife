@@ -54,7 +54,7 @@ export const Login = async (req, res) => {
 
     // Add role to the token (important)
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id, role: user.role, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
