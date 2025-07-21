@@ -31,7 +31,7 @@ function SearchResults({ results = [], loading }) {
       {availableDonors.map((user) => (
         <div
           key={user._id}
-          className="relative p-5 bg-white dark:bg-melty border border-melty/15 dark:border-BG/15 rounded-xl shadow-lg transition-all hover:shadow-xl"
+          className="relative pt-10 pb-5 px-5 bg-white dark:bg-melty border border-melty/15 dark:border-BG/15 rounded-xl shadow-lg transition-all hover:shadow-xl"
         >
           {/* Availability Badge */}
           <span
@@ -43,20 +43,25 @@ function SearchResults({ results = [], loading }) {
           >
             {user.isAvailable ? t(dt.statusAvailable) : t(dt.statusUnavailable)}
           </span>
-          {/* Name */}
+
+          {/* User Info */}
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-orange-600">
+            {/* Full Name */}
+            <h3 className="text-lg font-bold text-accent mt-2">
               {user.fullName}
             </h3>
+
             {/* Blood Group */}
-            <p className="text-base font-semibold text-gray-800 dark:text-gray-200">
+            <p className="text-base font-semibold text-melty dark:text-BG">
               {user.bloodGroup}
             </p>
-            {/* Division */}
+
+            {/* Address */}
             <p className="text-sm text-gray-500">
               {user.address?.division}, {user.address?.district}
             </p>
-            {/* Phone Number */}
+
+            {/* Phone Number with Copy-on-Tap */}
             <p
               className="text-sm font-semibold text-red-600 cursor-pointer select-none active:scale-[0.98] transition"
               onClick={() => handleCopy(user.phoneNumber)}
