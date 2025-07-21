@@ -35,12 +35,20 @@ export const searchUsers = async (req, res) => {
         { "address.district": regex },
       ];
     }
+    // Donors with availability will be shown only to the fronend
+
+    if (req.query.onlyAvailable === "true") {
+      filter.isAvailable = true;
+    }
 
     const sortOption = {};
     sortOption[sortBy] = order === "desc" ? -1 : 1;
 
     const users = await User.find(filter)
-      .select("fullName bloodGroup address email phoneNumber lastDonated")
+
+      .select(
+        "fullName bloodGroup address email phoneNumber lastDonated isAvailable"
+      )
       .sort(sortOption);
 
     res.status(200).json(users);
@@ -49,7 +57,7 @@ export const searchUsers = async (req, res) => {
     res.status(500).json({ message: "Search failed" });
   }
 };
-// Count all the controllers
+// Count all the Users
 export const getStats = async (req, res) => {
   try {
     const total = await User.countDocuments();
