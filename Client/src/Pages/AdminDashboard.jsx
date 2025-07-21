@@ -56,30 +56,42 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this user?")) return;
+    const token = localStorage.getItem("token");
+
     try {
       await axios.delete(
-        `https://giftoflife.onrender.com/api/admin/users/${id}`
+        `https://giftoflife.onrender.com/api/admin/users/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
       toast.success("User deleted");
       setUsers((prev) => prev.filter((u) => u._id !== id));
-    } catch {
+    } catch (err) {
       toast.error("Error deleting user");
+      console.error("Delete error:", err);
     }
   };
 
   const handleRoleUpdate = async (id, role, isAdmin) => {
     setUpdatingId(id);
+    const token = localStorage.getItem("token");
+
     try {
       await axios.patch(
         `https://giftoflife.onrender.com/api/admin/users/${id}/role`,
-        { role, isAdmin }
+        { role, isAdmin },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
       toast.success("Role updated");
       setUsers((prev) =>
         prev.map((u) => (u._id === id ? { ...u, role, isAdmin } : u))
       );
-    } catch {
+    } catch (err) {
       toast.error("Failed to update role");
+      console.error("Update role error:", err);
     } finally {
       setUpdatingId(null);
     }
