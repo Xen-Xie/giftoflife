@@ -13,7 +13,10 @@ function FindDonor() {
   const { t } = useTranslation();
   const [donors, setDonors] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const donorsPerPage = 20;
 
+  // Fetch all donors
   useEffect(() => {
     if (user) {
       setLoading(true);
@@ -27,6 +30,17 @@ function FindDonor() {
     }
   }, [user]);
 
+  // Logic for pagination
+  const indexOfLastDonor = currentPage * donorsPerPage;
+  const indexOfFirstDonor = indexOfLastDonor - donorsPerPage;
+  const currentDonors = donors.slice(indexOfFirstDonor, indexOfLastDonor);
+  const totalPages = Math.ceil(donors.length / donorsPerPage);
+
+  const goToPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (!user) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 font-Lexend">
@@ -38,7 +52,9 @@ function FindDonor() {
         </p>
         <div className="flex gap-4">
           <Link to="/login">
-            <Button className="px-5 py-2 bg-success">{t("nav.login", "Login")}</Button>
+            <Button className="px-5 py-2 bg-success">
+              {t("nav.login", "Login")}
+            </Button>
           </Link>
           <Link to="/signup">
             <Button className="px-5 py-2 bg-primary">
@@ -60,7 +76,58 @@ function FindDonor() {
       <SearchSection setResults={setDonors} setLoading={setLoading} />
 
       {/* Donor List */}
-      <SearchResults results={donors} loading={loading} />
+      <SearchResults results={currentDonors} loading={loading} />
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-10 flex justify-center items-center gap-2 flex-wrap">
+          {/* Left Arrow */}
+          <button
+            onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-2 rounded-full border transition ${
+              currentPage === 1
+                ? "cursor-not-allowed opacity-50 bg-gray-200 dark:bg-gray-700"
+                : "hover:bg-primary hover:text-white bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+            }`}
+          >
+            <i className="fa-solid fa-arrow-left"></i>
+          </button>
+
+          {/* Page Numbers */}
+          {[...Array(totalPages)].map((_, index) => {
+            const page = index + 1;
+            return (
+              <button
+                key={page}
+                onClick={() => goToPage(page)}
+                className={`px-4 py-2 rounded-full border ${
+                  currentPage === page
+                    ? "bg-primary text-white"
+                    : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                } hover:bg-primary hover:text-white transition`}
+              >
+                {page}
+              </button>
+            );
+          })}
+
+          {/* Right Arrow */}
+          <button
+            onClick={() =>
+              currentPage < totalPages && goToPage(currentPage + 1)
+            }
+            disabled={currentPage === totalPages}
+            className={`px-3 py-2 rounded-full border transition ${
+              currentPage === totalPages
+                ? "cursor-not-allowed opacity-50 bg-gray-200 dark:bg-gray-700"
+                : "hover:bg-primary hover:text-white bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+            }`}
+          >
+            <i className="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
