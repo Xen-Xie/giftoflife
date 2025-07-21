@@ -35,9 +35,9 @@ function MedicalTips() {
 
   return (
     <section className="py-12 px-6 text-center font-Lexend">
-      <h2 className="flex items-center mx-auto text-2xl md:text-3xl font-bold text-primary mb-6 gap-2 justify-center">
-        <FaHandHoldingWater className="text-center" />
-        {t("medicalTips.title", "Medical Tips for Donors")}
+      <h2 className="flex items-center mx-auto text-lg md:text-3xl font-bold text-primary mb-6 gap-2 justify-center">
+        <FaHandHoldingWater className="text-xl sm:text-2xl md:text-3xl" />
+        {t("medicalTips.title")}
       </h2>
 
       <div className="grid gap-4 md:grid-cols-2 max-w-4xl mx-auto">
