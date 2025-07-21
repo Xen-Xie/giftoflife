@@ -178,6 +178,12 @@ function NavBar() {
       </nav>
 
       {/* Mobile Menu */}
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+          onClick={() => setOpen(false)}
+        />
+      )}
       <div
         className={`md:hidden fixed top-0 left-0 w-2/4 h-screen bg-melty dark:bg-BG shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
           open ? "translate-x-0" : "-translate-x-full"
@@ -195,6 +201,28 @@ function NavBar() {
               </Link>
             </li>
           ))}{" "}
+          {!user && (
+            <>
+              <li>
+                <Link
+                  to="/signup"
+                  onClick={() => setOpen(false)}
+                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+                >
+                  {t("nav.signup")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                  className="relative after:block after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 hover:after:w-full"
+                >
+                  {t("nav.login")}
+                </Link>
+              </li>
+            </>
+          )}
           {user && (
             <li>
               <Link
