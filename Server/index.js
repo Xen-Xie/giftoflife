@@ -12,6 +12,7 @@ import { authenticateToken, isAdmin } from "./src/middleware/auth.js";
 import adminRoutes from './src/routes/adminRoutes.js';
 import defaultRoutes from './src/routes/defaultRoutes.js';
 import singleUserRoutes from  './src/routes/singleUserRoutes.js';
+import photosRoutes from './src/routes/photosRoutes.js'
 
 //Configurations
 const app = express();
@@ -35,6 +36,7 @@ app.use('/api/auth' , authRoutes);
 app.use('/api/users', authenticateToken,userRoutes)
 app.use('/api/admin', authenticateToken, isAdmin, adminRoutes);
 app.use('/api/user',authenticateToken,singleUserRoutes)
+app.use("/api/images",authenticateToken,isAdmin,photosRoutes)
 
 
 //Server Port
