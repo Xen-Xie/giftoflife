@@ -8,10 +8,10 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h1 className="text-2xl font-semibold mb-4 text-gray-400">Contact Us On</h1>
         <div className="flex justify-center space-x-6 text-2xl mb-6">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-500 transition duration-300">
+          <a href="https://www.facebook.com/hemel.707/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-500 transition duration-300">
             <i className="fa-brands fa-facebook"></i>
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 transition duration-300">
+          <a href="https://www.instagram.com/md.rakibulhasanhemel/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 transition duration-300">
             <i className="fa-brands fa-instagram"></i>
           </a>
           <a href="https://github.com/Xen-Xie" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-400 transition duration-300">
