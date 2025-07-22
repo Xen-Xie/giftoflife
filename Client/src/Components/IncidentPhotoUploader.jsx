@@ -12,17 +12,8 @@ function IncidentPhotoUploader() {
   }, []);
 
 const fetchPhotos = () => {
-  if (!token) {
-    console.warn("No token found — user might not be logged in");
-    return;
-  }
-
   axios
-    .get("https://giftoflife.onrender.com/api/images", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    .get("https://giftoflife.onrender.com/api/allphotos")
     .then((res) => setPhotos(res.data))
     .catch((err) => console.error("Fetch failed", err));
 };

@@ -12,24 +12,17 @@ const CarouselSection = () => {
   const startX = useRef(0);
   const endX = useRef(0);
   // Photos Fetching Logic
-  const fetchPhotos = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "https://giftoflife.onrender.com/api/images",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setPhotos(response.data);
-    } catch (err) {
-      console.error("Error fetching photos:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchPhotos = async () => {
+  try {
+    const response = await axios.get("https://giftoflife.onrender.com/api/allphotos");
+    setPhotos(response.data);
+  } catch (err) {
+    console.error("Error fetching photos:", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     fetchPhotos();
