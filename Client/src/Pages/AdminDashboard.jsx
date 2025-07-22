@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import IncidentPhotoUploader from "../Components/IncidentPhotoUploader";
 
 // Global Filter Component
 const GlobalFilter = ({ globalFilter, setGlobalFilter }) => (
@@ -241,7 +242,9 @@ const AdminDashboard = () => {
           Next
         </button>
       </div>
+      <IncidentPhotoUploader />
     </motion.div>
+    
   );
 };
 
