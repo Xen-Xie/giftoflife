@@ -16,7 +16,7 @@ export const uploadPhoto = async (req, res) => {
     const { caption } = req.body;
     const newPhoto = await Photos.create({
       imageUrl: req.file.path,
-      publicId: req.file.filename,
+      publicId: req.file.public_id,
       caption,
     });
     res.status(201).json(newPhoto);
