@@ -15,7 +15,6 @@ const storage = new CloudinaryStorage({
 });
 const upload = multer({storage})
 
-router.get("/",getAllPhotos);
 router.post("/upload",upload.single("image"),uploadPhoto);
 router.delete("/:id",deletePhoto);
 
