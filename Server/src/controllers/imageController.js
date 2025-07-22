@@ -20,7 +20,7 @@ export const uploadPhoto = async (req, res) => {
 
     const newPhoto = await Photos.create({
       imageUrl: req.file.path,
-      publicId: req.file.public_id,
+      publicId: req.file.filename,
       caption,
     });
     res.status(201).json(newPhoto);
@@ -31,23 +31,19 @@ export const uploadPhoto = async (req, res) => {
 
 export const deletePhoto = async (req, res) => {
   try {
-    const photo = await Photos.findById(req.params.id);
-    if (!photo) return res.status(404).json({ message: "Not found" });
+    const photo = await Photos.findById(req.params.id); // FIXED
+    if (!photo) return res.status(404).json({ message: "Photo not found" });
 
-    // don't fail if photo doesn't exist
-    try {
-      await cloudinary.uploader.destroy(photo.publicId);
-    } catch (cloudErr) {
-      console.warn(
-        "Cloudinary deletion failed (possibly already deleted):",
-        cloudErr.message
-      );
-    }
+    // Delete from Cloudinary
+    const publicId = photo.publicId;
+    await cloudinary.uploader.destroy(publicId);
 
-    await photo.remove();
-    res.json({ message: "Deleted successfully" });
-  } catch (err) {
-    console.error("Error deleting photo:", err.message);
+    // Delete from MongoDB
+    await Photos.deleteOne({ _id: photo._id }); // FIXED
+
+    res.status(200).json({ message: "Deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting photo:", error);
     res.status(500).json({ message: "Delete Failed" });
   }
 };
