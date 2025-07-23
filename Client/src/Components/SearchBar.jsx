@@ -22,7 +22,9 @@ function SearchSection({ setResults, setLoading }) {
 
   const divisionData = t("divisions", { returnObjects: true });
   const divisions = Object.keys(divisionData);
-  const districts = division ? divisionData[division] || [] : [];
+  const districts = division
+    ? Object.keys(divisionData[division]?.districts || {})
+    : [];
 
   const updateURLParams = () => {
     const params = {};
@@ -127,7 +129,7 @@ function SearchSection({ setResults, setLoading }) {
           <option value="">{t("signup.division")}</option>
           {divisions.map((div) => (
             <option key={div} value={div}>
-              {div}
+              {divisionData[div]?.name || div}{" "}
             </option>
           ))}
         </select>
@@ -145,7 +147,7 @@ function SearchSection({ setResults, setLoading }) {
           <option value="">{t("signup.district")}</option>
           {districts.map((dist) => (
             <option key={dist} value={dist}>
-              {dist}
+              {divisionData[division]?.districts?.[dist] || dist}{" "}
             </option>
           ))}
         </select>

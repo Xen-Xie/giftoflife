@@ -316,16 +316,16 @@ function SignUp() {
                     <option value="">{t(formLabels.division)}</option>
                     {Object.keys(DivisionDristrict).map((division) => (
                       <option key={division} value={division}>
-                        {division}
+                        {DivisionDristrict[division]?.name || division}
                       </option>
                     ))}
                   </select>
                   <i
-                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-4/6 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out
-     select-dropdown-icon"
+                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-4/6 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out select-dropdown-icon"
                     aria-hidden="true"
                   ></i>
                 </div>
+
                 {/* District Selection */}
                 <div className="mt-4 relative">
                   <label className="block mb-1 font-semibold text-primary/90">
@@ -343,18 +343,22 @@ function SignUp() {
                   >
                     <option value="">{t(formLabels.district)}</option>
                     {form.division &&
-                      DivisionDristrict[form.division].map((district) => (
-                        <option key={district} value={district}>
-                          {district}
+                      Object.keys(
+                        DivisionDristrict[form.division]?.districts || {}
+                      ).map((districtKey) => (
+                        <option key={districtKey} value={districtKey}>
+                          {DivisionDristrict[form.division]?.districts[
+                            districtKey
+                          ] || districtKey}
                         </option>
                       ))}
                   </select>
                   <i
-                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-4/6 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out
-     select-dropdown-icon"
+                    className="fas fa-chevron-down pointer-events-none absolute right-4 top-4/6 -translate-y-1/2 text-primary/70 transition-transform duration-300 ease-in-out select-dropdown-icon"
                     aria-hidden="true"
                   ></i>
                 </div>
+
                 {/* Age */}
                 <input
                   type="number"

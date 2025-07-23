@@ -22,77 +22,112 @@
   "blood_group": "Blood Group",
   "search": "Search",
   "divisions": {
-    "Dhaka": [
-      "Dhaka",
-      "Faridpur",
-      "Gazipur",
-      "Gopalganj",
-      "Kishoreganj",
-      "Madaripur",
-      "Manikganj",
-      "Munshiganj",
-      "Narayanganj",
-      "Narsingdi",
-      "Rajbari",
-      "Shariatpur",
-      "Tangail"
-    ],
-    "Chattogram": [
-      "Bandarban",
-      "Brahmanbaria",
-      "Chandpur",
-      "Chattogram",
-      "Cumilla",
-      "Cox's Bazar",
-      "Feni",
-      "Khagrachari",
-      "Lakshmipur",
-      "Noakhali",
-      "Rangamati"
-    ],
-    "Khulna": [
-      "Bagerhat",
-      "Chuadanga",
-      "Jashore",
-      "Jhenaidah",
-      "Khulna",
-      "Kushtia",
-      "Magura",
-      "Meherpur",
-      "Narail",
-      "Satkhira"
-    ],
-    "Rajshahi": [
-      "Bogura",
-      "Chapainawabganj",
-      "Joypurhat",
-      "Naogaon",
-      "Natore",
-      "Pabna",
-      "Rajshahi",
-      "Sirajganj"
-    ],
-    "Barisal": [
-      "Barguna",
-      "Barisal",
-      "Bhola",
-      "Jhalokathi",
-      "Patuakhali",
-      "Pirojpur"
-    ],
-    "Sylhet": ["Habiganj", "Moulvibazar", "Sunamganj", "Sylhet"],
-    "Rangpur": [
-      "Dinajpur",
-      "Gaibandha",
-      "Kurigram",
-      "Lalmonirhat",
-      "Nilphamari",
-      "Panchagarh",
-      "Rangpur",
-      "Thakurgaon"
-    ],
-    "Mymensingh": ["Jamalpur", "Mymensingh", "Netrokona", "Sherpur"]
+    "dhaka": {
+      "name": "Dhaka",
+      "districts": {
+        "dhaka": "Dhaka",
+        "faridpur": "Faridpur",
+        "gazipur": "Gazipur",
+        "gopalganj": "Gopalganj",
+        "kishoreganj": "Kishoreganj",
+        "madaripur": "Madaripur",
+        "manikganj": "Manikganj",
+        "munshiganj": "Munshiganj",
+        "narayanganj": "Narayanganj",
+        "narsingdi": "Narsingdi",
+        "rajbari": "Rajbari",
+        "shariatpur": "Shariatpur",
+        "tangail": "Tangail"
+      }
+    },
+    "chattogram": {
+      "name": "Chattogram",
+      "districts": {
+        "bandarban": "Bandarban",
+        "brahmanbaria": "Brahmanbaria",
+        "chandpur": "Chandpur",
+        "chattogram": "Chattogram",
+        "cumilla": "Cumilla",
+        "coxs_bazar": "Cox's Bazar",
+        "feni": "Feni",
+        "khagrachari": "Khagrachari",
+        "lakshmipur": "Lakshmipur",
+        "noakhali": "Noakhali",
+        "rangamati": "Rangamati"
+      }
+    },
+    "khulna": {
+      "name": "Khulna",
+      "districts": {
+        "bagerhat": "Bagerhat",
+        "chuadanga": "Chuadanga",
+        "jashore": "Jashore",
+        "jhenaidah": "Jhenaidah",
+        "khulna": "Khulna",
+        "kushtia": "Kushtia",
+        "magura": "Magura",
+        "meherpur": "Meherpur",
+        "narail": "Narail",
+        "satkhira": "Satkhira"
+      }
+    },
+    "rajshahi": {
+      "name": "Rajshahi",
+      "districts": {
+        "bogura": "Bogura",
+        "chapainawabganj": "Chapainawabganj",
+        "joypurhat": "Joypurhat",
+        "naogaon": "Naogaon",
+        "natore": "Natore",
+        "pabna": "Pabna",
+        "rajshahi": "Rajshahi",
+        "sirajganj": "Sirajganj"
+      }
+    },
+    "barisal": {
+      "name": "Barisal",
+      "districts": {
+        "barguna": "Barguna",
+        "barisal": "Barisal",
+        "bhola": "Bhola",
+        "jhalokathi": "Jhalokathi",
+        "patuakhali": "Patuakhali",
+        "pirojpur": "Pirojpur"
+      }
+    },
+    "sylhet": {
+      "name": "Sylhet",
+      "districts": {
+        "habiganj": "Habiganj",
+        "moulvibazar": "Moulvibazar",
+        "sunamganj": "Sunamganj",
+        "sylhet": "Sylhet"
+      }
+    },
+    "rangpur": {
+      "name": "Rangpur",
+      "districts": {
+        "dinajpur": "Dinajpur",
+        "gaibandha": "Gaibandha",
+        "kurigram": "Kurigram",
+        "lalmonirhat": "Lalmonirhat",
+        "nilphamari": "Nilphamari",
+        "panchagarh": "Panchagarh",
+        "rangpur": "Rangpur",
+        "thakurgaon": "Thakurgaon"
+      }
+    },
+    "mymensingh": {
+      "name": "Mymensingh",
+      "districts": {
+        "jamalpur": "Jamalpur",
+        "mymensingh": "Mymensingh",
+        "netrokona": "Netrokona",
+        "sherpur": "Sherpur"
+      }
+    }
   },
+
   "signup": {
     "fullName": "Enter Your Full Name",
     "email": "Enter Your Email",
