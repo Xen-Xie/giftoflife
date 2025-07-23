@@ -124,7 +124,7 @@ function SearchSection({ setResults, setLoading }) {
             setDivision(e.target.value);
             setDistrict("");
           }}
-          className="w-full px-4 py-2 dropdown"
+          className="w-full px-4 py-2 dropdown truncate"
         >
           <option value="">{t("signup.division")}</option>
           {divisions.map((div) => (
@@ -142,7 +142,7 @@ function SearchSection({ setResults, setLoading }) {
           value={district}
           onChange={(e) => setDistrict(e.target.value)}
           disabled={!division}
-          className="w-full px-4 py-2 pr-10 dropdown"
+          className="w-full px-4 py-2 pr-10 dropdown truncate"
         >
           <option value="">{t("signup.district")}</option>
           {districts.map((dist) => (
